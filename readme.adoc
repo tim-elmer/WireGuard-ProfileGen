@@ -1,0 +1,41 @@
+:source-highlighter: highlight.js
+= Wireguard ProfileGen
+
+A super basic helper script to generate WireGuard peer configuration files.
+
+== Use
+[,bash]
+----
+wireguard-profilegen.py [-h] [-d DNS_SERVER] [-k PRE_SHARED_KEY] [--full-tunnel-name FULL_TUNNEL_NAME] [--split-tunnel-name SPLIT_TUNNEL_NAME] PEER_NAME PEER_ADDRESS ENDPOINT ENDPOINT_PUBLIC_KEY SPLIT_TUNNEL_ALLOWED_IPS
+----
+
+NOTE: If run as an executable (e.g. `./wireguard-profilegen.py`), the script will try to run with `/usr/local/bin/python3.11`. This is due to it being written for use within pfSense. Sorry about that 🙂.
+
+=== Arguments
+`PEER_NAME`:: The name of the peer. For file naming only. 
++
+IMPORTANT: Note that this name and the tunnel name may not be longer than 15 characters.
+
+`PEER_ADDRESS`:: The IP address of the peer, including a /32-bit mask. e.g. `192.168.1.42/32`.
+
+`ENDPOINT`:: The VPN endpoint (router) and its port. Can be an IP address or DNS name. e.g.: `42.42.42.42:51820`, `meaningofli.fe:51820`.
+
+`ENDPOINT_PUBLIC_KEY`:: The public key of the VPN endpoint.
+
+`SPLIT_TUNNEL_ALLOWED_IPS`:: A list of subnets which should be reachable via the split-tunnel configuration.
+
+=== Options
+`-d` `DNS_SERVER`::
+`--dns-server` `DNS_SERVER`:: The DNS server (s) for the tunnel in a comma-separated list. Typically the VPN endpoint's IP address.
+
+`-k` `PRE_SHARED_KEY`::
+`--pre-shared-key` `PRE_SHARED_KEY`:: The pre-shared key for the tunnel, if set.
+
+`--full-tunnel-name` `FULL_TUNNEL_NAME`:: The name to append to the full-tunnel configuration file.
+`--split-tunnel-name` `SPLIT_TUNNEL_NAME`:: The name to append to the split-tunnel configuration file.
+
+=== Examples
+.A peer named `peer`, with address `192.168.100.2`, targeting endpoint `meaningofli.fe:51820` which exposes `192.168.100.0/24`, and using DNS servers `1.1.1.1` and `1.0.0.1`.
+====
+wireguard-profilegen.py peer 192.168.100.2/32 meaningofli.fe:51820 notarealpublickey= 192.168.100.0/24 -d "1.1.1.1, 1.0.0.1"
+====
