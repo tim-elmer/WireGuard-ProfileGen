@@ -37,5 +37,8 @@ IMPORTANT: Note that this name and the tunnel name may not be longer than 15 cha
 === Examples
 .A peer named `peer`, with address `192.168.100.2`, targeting endpoint `meaningofli.fe:51820` which exposes `192.168.100.0/24`, and using DNS servers `1.1.1.1` and `1.0.0.1`.
 ====
+[,bash]
+----
 wireguard-profilegen.py peer 192.168.100.2/32 meaningofli.fe:51820 notarealpublickey= 192.168.100.0/24 -d "1.1.1.1, 1.0.0.1"
+----
 ====
