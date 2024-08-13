@@ -43,9 +43,9 @@ full_tunnel_config['Peer']['AllowedIPs'] = '0.0.0.0/0, ::/0'
 split_tunnel_config = deepcopy(general_config)
 split_tunnel_config['Peer']['AllowedIPs'] = arguments.split_tunnel_allowed_ips
 
-with open(f'{arguments.peer_name}-{arguments.full_tunnel_name}.config', 'x') as full_tunnel_file:
+with open(f'{arguments.peer_name}-{arguments.full_tunnel_name}.conf', 'x') as full_tunnel_file:
     full_tunnel_config.write(full_tunnel_file)
-with open(f'{arguments.peer_name}-{arguments.split_tunnel_name}.config', 'x') as split_tunnel_file:
+with open(f'{arguments.peer_name}-{arguments.split_tunnel_name}.conf', 'x') as split_tunnel_file:
     split_tunnel_config.write(split_tunnel_file)
 
 private_key = general_config = full_tunnel_config = split_tunnel_config = None
