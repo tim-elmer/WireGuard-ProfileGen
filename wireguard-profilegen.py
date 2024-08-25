@@ -19,7 +19,7 @@ arguments = argument_parser.parse_args()
 
 print('Generating keys\n')
 private_key = run(['wg', 'genkey'], capture_output=True, check=True, text=True).stdout.strip()
-public_key = run(['wg', 'genkey'], capture_output=True, input=private_key, check=True, text=True).stdout.strip()
+public_key = run(['wg', 'pubkey'], capture_output=True, input=private_key, check=True, text=True).stdout.strip()
 print(f'Public Key: {public_key}\n')
 
 general_config = ConfigParser()
